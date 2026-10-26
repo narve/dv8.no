@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DV8</title>
+  <meta name="description" content="DV8 is a one-man consultancy run by Narve Sætre, advising on tech leadership, architecture and the use of artificial intelligence in larger projects.">
+  <meta name="color-scheme" content="dark light">
+
+  <!-- Basic visitor tracking - privacy-friendly, GDPR-compliant, European -->
+  <script>
+    window.goatcounter = {
+      path: function(p) { return location.host + p }
+    }
+  </script>
+  <script data-goatcounter="https://dv8.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #07090d;
+      --bg-card: rgba(18, 24, 33, 0.72);
+      --line: rgba(120, 200, 230, 0.12);
+      --line-strong: rgba(120, 200, 230, 0.32);
+      --text: #d6dde6;
+      --muted: #7d8a99;
+      --accent: #6fd6e8;
+      --accent-2: #b59cff;
+      --grid: rgba(111, 214, 232, 0.045);
+      --glow: rgba(111, 214, 232, 0.08);
+    }
+    @media (prefers-color-scheme: light) {
+      :root {
+        --bg: #f3f5f8;
+        --bg-card: rgba(255, 255, 255, 0.78);
+        --line: rgba(20, 70, 100, 0.12);
+        --line-strong: rgba(20, 110, 140, 0.35);
+        --text: #18202b;
+        --muted: #5b6776;
+        --accent: #0b7f95;
+        --accent-2: #6a4fd1;
+        --grid: rgba(11, 127, 149, 0.06);
+        --glow: rgba(11, 127, 149, 0.07);
+      }
+    }
+
+    * { box-sizing: border-box; }
+
+    html { background: var(--bg); }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--text);
+      font: 400 16px/1.6 "Space Grotesk", system-ui, sans-serif;
+      background:
+        radial-gradient(ellipse 80% 50% at 50% -10%, var(--glow), transparent 70%),
+        linear-gradient(var(--grid) 1px, transparent 1px) 0 0 / 40px 40px,
+        linear-gradient(90deg, var(--grid) 1px, transparent 1px) 0 0 / 40px 40px,
+        var(--bg);
+      background-attachment: fixed;
+    }
+
+    .wrap {
+      max-width: 60rem;
+      margin: 0 auto;
+      padding: 4.5rem 1rem 3rem;
+    }
+
+    .mono {
+      font-family: "JetBrains Mono", ui-monospace, monospace;
+      font-size: 0.78rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    header { margin-bottom: 3.5rem; }
+
+    header .mono::before {
+      content: "";
+      display: inline-block;
+      width: 0.5em;
+      height: 0.5em;
+      margin-right: 0.6em;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 8px var(--accent);
+      vertical-align: 0.08em;
+      animation: pulse 3s ease-in-out infinite;
+    }
+
+    @keyframes pulse { 50% { opacity: 0.35; } }
+
+    h1 {
+      margin: 0.6rem 0 0.8rem;
+      font-size: clamp(2.2rem, 6vw, 3.4rem);
+      font-weight: 500;
+      letter-spacing: -0.03em;
+      line-height: 1.05;
+    }
+
+    h1 span {
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    header p {
+      max-width: 36rem;
+      margin: 0;
+      color: var(--muted);
+    }
+
+    a { color: inherit; }
+
+    h2 {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin: 0 0 1.25rem;
+      font-weight: 400;
+    }
+    h2::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, var(--line-strong), transparent);
+    }
+
+    section + section { margin-top: 3.5rem; }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(17rem, 1fr));
+      gap: 1rem;
+    }
+
+    .card {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      padding: 1.25rem 1.25rem 1.1rem;
+      background: var(--bg-card);
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      backdrop-filter: blur(6px);
+      transition: border-color 0.25s, transform 0.25s;
+    }
+    .card:hover {
+      border-color: var(--line-strong);
+      transform: translateY(-2px);
+    }
+    /* corner brackets */
+    .card::before, .card::after {
+      content: "";
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      border: 1px solid var(--accent);
+      opacity: 0.5;
+      transition: opacity 0.25s;
+    }
+    .card::before { top: -1px; left: -1px; border-right: 0; border-bottom: 0; border-top-left-radius: 6px; }
+    .card::after { bottom: -1px; right: -1px; border-left: 0; border-top: 0; border-bottom-right-radius: 6px; }
+    .card:hover::before, .card:hover::after { opacity: 1; }
+
+    .card.featured {
+      grid-column: 1 / -1;
+      padding: 1.75rem;
+      border-color: var(--line-strong);
+    }
+    .card.wide { grid-column: 1 / -1; }
+    .card.wide p { max-width: 42rem; }
+    .card.featured h3 { font-size: 1.6rem; }
+    .card.featured p { font-size: 1.05rem; max-width: 42rem; }
+
+    .card h3 {
+      margin: 0.35rem 0 0.5rem;
+      font-size: 1.2rem;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+    }
+
+    .card p {
+      flex: 1;
+      margin: 0 0 1.1rem;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .meta { display: flex; gap: 0.75rem; }
+    .meta .lang { color: var(--accent-2); }
+
+    .links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .links a {
+      font-family: "JetBrains Mono", ui-monospace, monospace;
+      font-size: 0.78rem;
+      text-decoration: none;
+      padding: 0.3rem 0.65rem;
+      border: 1px solid var(--line-strong);
+      border-radius: 3px;
+      transition: background 0.2s, color 0.2s;
+    }
+    .links a:hover, .links a:focus-visible {
+      background: var(--accent);
+      color: var(--bg);
+      outline: none;
+    }
+    .links a.live { border-color: var(--accent); color: var(--accent); }
+    .links a.live:hover, .links a.live:focus-visible { color: var(--bg); }
+
+    .archive {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      border-top: 1px solid var(--line);
+    }
+    .archive li {
+      display: grid;
+      grid-template-columns: 12rem 1fr auto;
+      gap: 1rem;
+      align-items: baseline;
+      padding: 0.75rem 0.25rem;
+      border-bottom: 1px solid var(--line);
+    }
+    .archive a { text-decoration: none; font-weight: 500; }
+    .archive a:hover { color: var(--accent); }
+    .archive .desc { color: var(--muted); font-size: 0.92rem; }
+    .archive .desc a { font-weight: 400; text-decoration: underline; }
+
+    footer {
+      margin-top: 4rem;
+      padding-top: 1.25rem;
+      border-top: 1px solid var(--line);
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    footer a { text-decoration: none; }
+    footer a:hover { color: var(--accent); }
+
+    @media (max-width: 40rem) {
+      .wrap { padding-top: 3rem; }
+      .card.featured { padding: 1.25rem; }
+      .archive li { grid-template-columns: 1fr; gap: 0.15rem; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation: none !important; transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="mono">dv8.no</div>
+    <h1><span>DV8</span></h1>
+    <p>DV8 is a one-man consultancy run by Narve Sætre. I help larger projects with technical leadership, software architecture and the practical use of artificial intelligence, from early decisions through to delivery.</p>
+  </header>
+
+  <main>
+    <section>
+      <h2 class="mono">Services</h2>
+      <div class="grid">
+
+        <article class="card">
+          <div class="meta mono"><span class="lang">Leadership</span></div>
+          <h3>Tech lead</h3>
+          <p>Hands-on technical leadership for teams and projects: setting direction, making trade-offs explicit, and keeping quality and delivery on track.</p>
+        </article>
+
+        <article class="card">
+          <div class="meta mono"><span class="lang">Design</span></div>
+          <h3>Architecture</h3>
+          <p>Advice on system design for larger solutions: structure, integrations, data and technology choices that hold up as the project and the organisation grow.</p>
+        </article>
+
+        <article class="card">
+          <div class="meta mono"><span class="lang">AI</span></div>
+          <h3>Artificial intelligence</h3>
+          <p>Where AI actually helps and where it doesn't: AI-assisted development with coding agents, AI features in products, and how to adopt both safely at scale.</p>
+        </article>
+
+      </div>
+    </section>
+
+    <section>
+      <h2 class="mono">Background</h2>
+      <article class="card wide">
+        <div class="meta mono"><span class="lang">Narve Sætre</span></div>
+        <h3>Projects and talks</h3>
+        <p>Public projects, AI experiments and slides from talks are collected on my personal page.</p>
+        <div class="links">
+          <a class="live" href="https://narve.github.io/">narve.github.io ↗</a>
+        </div>
+      </article>
+    </section>
+  </main>
+
+  <footer class="mono">
+    <span>© DV8 · Narve Sætre</span>
+    <a href="https://narve.github.io/">narve.github.io ↗</a>
+  </footer>
+
+</div>
+</body>
+</html>
